@@ -34,7 +34,7 @@ jobs:
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
       - name: Set date
-        run: echo "NOW=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+        run: echo "NOW=$(date +'%Y-%m-%d_%H:%M:%S')" >> $GITHUB_ENV
 
       - name: Release
         uses: ncipollo/release-action@v1
