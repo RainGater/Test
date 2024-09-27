@@ -38,3 +38,11 @@ jobs:
 
       - name: Release
         run: echo mx4300-nss-${{ env.NOW }}
+        
+      - name: Get SHORT SHA 
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: mx4300-nss-"${SHORT_SHA}"
