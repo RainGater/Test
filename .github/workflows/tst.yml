@@ -45,4 +45,4 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          tag: mx4300-nss-"${SHORT_SHA}"
+          tag: mx4300-nss-${{ env.SHORT_SHA }}
