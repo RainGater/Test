@@ -15,23 +15,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
       - name: Get SHORT SHA ${SHORT_SHA}
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        run: echo "SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
       - name: Set date
         run: echo "NOW=$(date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_ENV
@@ -39,14 +31,23 @@ jobs:
       - name: Build Images
         run: touch test.1 test.2
         
-      - name: Release
-        run: echo mx4300-nss-${{ env.NOW }}
+      - name: Release 1
+        uses: ncipollo/release-action@v1
+        with:
+          tag: mx4300-nss-"v${NOW}"
+          artifacts: test.1 test.2
         
       - name: Get SHORT SHA 
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
-      - name: Release
+      - name: Release 2
         uses: ncipollo/release-action@v1
         with:
-          tag: mx4300-nss-${{ env.SHORT_SHA }}
+          tag: mx4300-nss-"v${SHORT_SHA}"
+          artifacts: test.1 test.2
+
+      - name: Release 3
+        uses: ncipollo/release-action@v1
+        with:
+          tag: mx4300-nss-"${SHORT_SHA}"
           artifacts: test.1 test.2
