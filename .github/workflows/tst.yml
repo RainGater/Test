@@ -34,7 +34,7 @@ jobs:
       - name: Release 1 
         uses: ncipollo/release-action@v1
         with:
-          tag: mx4300-nss-"${{ env.NOW }}"
+          tag: mx4300-nss-${{ env.NOW }}
           artifacts: test.1 test.2
         
       - name: Get SHORT SHA 
