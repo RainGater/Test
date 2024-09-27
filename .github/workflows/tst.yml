@@ -36,6 +36,9 @@ jobs:
       - name: Set date
         run: echo "NOW=$(date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_ENV
 
+      - name: Build Images
+        run: touch test.1 test.2
+        
       - name: Release
         run: echo mx4300-nss-${{ env.NOW }}
         
@@ -46,3 +49,4 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: mx4300-nss-${{ env.SHORT_SHA }}
+          artifacts: test.1 test.2
