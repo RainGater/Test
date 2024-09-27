@@ -37,6 +37,4 @@ jobs:
         run: echo "NOW=$(date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_ENV
 
       - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: mx4300-nss-${{ env.NOW }}
+        run: echo mx4300-nss-${{ env.NOW }}
