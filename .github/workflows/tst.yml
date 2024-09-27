@@ -31,23 +31,23 @@ jobs:
       - name: Build Images
         run: touch test.1 test.2
         
-      - name: Release 1
+      - name: Release 1 "${{ env.NOW }}"
         uses: ncipollo/release-action@v1
         with:
-          tag: mx4300-nss-"v${NOW}"
+          tag: mx4300-nss-"${{ env.NOW }}"
           artifacts: test.1 test.2
         
       - name: Get SHORT SHA 
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
-      - name: Release 2
+      - name: Release 2 "${env.SHORT_SHA}"
         uses: ncipollo/release-action@v1
         with:
-          tag: mx4300-nss-"v${SHORT_SHA}"
+          tag: mx4300-nss-"${env.SHORT_SHA}"
           artifacts: test.1 test.2
 
-      - name: Release 3
+      - name: Release 3 ${SHORT_SHA}
         uses: ncipollo/release-action@v1
         with:
-          tag: mx4300-nss-"${SHORT_SHA}"
+          tag: mx4300-nss-${SHORT_SHA}
           artifacts: test.1 test.2
